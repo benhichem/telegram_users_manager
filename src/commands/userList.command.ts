@@ -5,8 +5,9 @@ import { AppDataSource } from '../providers/database.js'
 import { User } from '../data/entities/user.entity.js'
 import ReadCMPStorage from '../utils/read_chat_member_plugin_storage.js'
 import Csv from "../utils/csv.index.js"
-import SendFile from '../utils/sendfile.js'
+import {SendFile} from '../utils/sendfile.js'
 
+//TODO: please change the path to the output file to be ./temp/userlist.csv
 
 
 

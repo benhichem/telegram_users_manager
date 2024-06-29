@@ -4,13 +4,26 @@ import { CsvFile } from "../types";
 import fs from "node:fs";
 
 export default class Csv implements CsvFile {
-    constructor(private PathToFile:string){}
+    constructor(private PathToFile: string) { }
     read<T>(): Array<T> {
-        throw new Error("Method not implemented.");
+        let data = fs.readFileSync(this.PathToFile).toString().split('\n')
+        const headers = data[0].split(',')
+        let results: Array<any> = []
+        data.map((line, index) => {
+            if (index !== 0) {
+                let obj: any = {}
+                // TODO:Please think of a verfification to check if the line is not empty
+                line.split(',').map((item, index) => {
+                    obj[headers[index]]  = item
+                })
+                results.push(obj)
+            }
+        })
+        return results as Array<T>
     }
     write<T extends Record<string, any>>(L: Array<T>): void {
         const CsvFormat = json2csv(L, {})
-        fs.writeFileSync(this.PathToFile,CsvFormat)
+        fs.writeFileSync(this.PathToFile, CsvFormat)
     }
     update<T>(ID: number, item: T): T {
         throw new Error("Method not implemented.");
@@ -19,3 +32,6 @@ export default class Csv implements CsvFile {
         throw new Error("Method not implemented.");
     }
 }
+
+
+new Csv('./output.csv').read()

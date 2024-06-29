@@ -16,25 +16,38 @@ export type chatMessageHistory = {
 }
 
 export type User = {
-  id:number;
-  first_name?:string
-  last_name?:string
-  username?:string
+  id: number;
+  first_name?: string
+  last_name?: string
+  username?: string
+}
+
+export type BulkMessageCsv = {
+  name:string;
+  username:string;
+  message:string;
+  attachement:any;
 }
 
 import { ChatMembersFlavor } from '@grammyjs/chat-members'
 import { Conversation, ConversationFlavor } from '@grammyjs/conversations'
 import { Context, SessionFlavor } from 'grammy'
+import { FileFlavor } from '@grammyjs/files'
 
 interface SessionData {
   favorites: {
     favoriteStations?: string[]
   }
 }
-export type MyConverstation = Conversation<MyContext>
 
+type Files = FileFlavor<Context>
+type Sessionss = SessionFlavor<SessionData>
 
 export type MyContext = Context &
-  SessionFlavor<SessionData> &
-  ConversationFlavor & ChatMembersFlavor
+  Files &
+  ConversationFlavor &
+  ChatMembersFlavor & Sessionss
+
+export type MyConverstation = Conversation<MyContext>
+
 

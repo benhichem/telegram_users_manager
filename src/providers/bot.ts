@@ -1,12 +1,16 @@
 import { chatMembers } from '@grammyjs/chat-members'
 import { FileAdapter } from '@grammyjs/storage-file'
-import { Conversation, createConversation } from '@grammyjs/conversations'
+import { Conversation, conversations, createConversation } from '@grammyjs/conversations'
 import { Bot, session } from 'grammy'
 import { ChatMember } from 'grammy/types'
+import { hydrateFiles } from '@grammyjs/files'
 
 import commands from "../commands/index.js"
 import { MyContext } from '../types/index.js'
 import ConfigService from './configservice.js'
+import BulkMessage from '../converstations/index.js'
+
+
 
 // addapters
 const adapter = new FileAdapter<ChatMember>({ dirName: 'Sotrage' })
@@ -26,6 +30,15 @@ application.use(
     },
   }),
 )
+
+// installing the file Plugin
+application.api.config.use(hydrateFiles(application.token))
+
+// Installing a converstation plugin and a command to exit it
+application.use(conversations()).command('cancel',async (ctx)=>{
+  await ctx.conversation.exit()
+})
+application.use(createConversation(BulkMessage, 'bulk_message'))
 
 // Connect Commands
 for (const iterator of commands) {
