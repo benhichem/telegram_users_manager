@@ -1,0 +1,10 @@
+procs:
+  typecript:
+    cwd: .
+    shell: tsc --watch
+  telegram_dev:
+    cwd: .
+    shell: npm run dev
+  shell: 
+    cwd: .
+    shell: zsh

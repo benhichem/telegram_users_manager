@@ -1,0 +1,59 @@
+- [ ] commands 
+    - [ ] remove bulk 
+        - [ ] requires csv list of users to remove 
+        - [ ] checks VIP list for intersections 
+        - [ ] removes only users that don't exist in VIP list. 
+    - [ ] message bulk 
+        - [ ] requires a csv input of user ids and messages 
+        - [ ] read the CSV
+        - [ ] loop the CSV rows 
+    - [ ] add bulk 
+        - [ ] requires a csv list of users to add. 
+        - [ ] checks if the user is in the ban list. 
+        - [ ] adds only users that don't exist in the ban list  
+    - [ ] add to BAN list 
+        - [ ] requires a user ID and a reason 
+        - [ ] adds to ban list 
+    - [ ] scrape all users 
+        - [ ][OVERVIEW] Due to the Telegram TOS the gameplay changed here so instead of making it a command it will be a first run script to generate the userDatabase and then we will also implement a plugin will continue watching every movement of the users and add them to the list, and the command will only be used to update and export the userDatabase to csv file. 
+            - [ ] extension script 
+                - [ ] get message history 
+                - [ ] can be executed from command line 
+                - [ ] check for every message sent from_id key and get userObject 
+                - [ ] save to the database. 
+            - [ ] update & generate csv command 
+                - [ ] set up the chat member plugin with an absolute path or straight to the database of users 
+                - [ ] get all users and generate the object to CSV 
+                - [ ] send it to the admin who requested it. 
+    - [ ] add to VIP list
+        - [ ] requires a userID 
+        - [ ] write to the VIP CSV 
+    - [ ] check user on what list is in 
+        - [ ] requires a userID
+        - [ ] reads BAN CSV , VIP CSV until is found 
+        - [ ] returns the row
+
+- [ ] Utils 
+    - [ ] Storage Crud 
+        client requested the Storage to be csv format 
+        - [ ] read
+        - [ ] look up
+            the look up function serves as a way to get the intersections betwenn a userID and A list.
+        - [ ] write to csv 
+    - [ ] isAdmin 
+        - [ ] function that runs a check if the called has admin priv.    
+    - [ ] loggin 
+        - [ ] logging requests by whom and what action 
+        - [ ] logs will be deleted after 30 days 
+    - [ ] hosting 
+        - [ ] able to restart if it fails.
+        - [ ] error handling to send me an email if it fails.
+        - [ ] mp2 setup 
+        - [ ] vultr hostring.
+    - [ ] send message function 
+        - [ ] takes userID:string & message:string 
+        - [ ] using the instagram api send message private to the user 
+        - [ ] returns void 
+
+- [ ] client review 
+

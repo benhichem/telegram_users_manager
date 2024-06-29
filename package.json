@@ -1,0 +1,42 @@
+{
+  "name": "telegram_users_manager",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node dist/index.js",
+    "dev": "nodemon dist/index.js",
+    "migrations:gen": "ts-node ./node_modules/.bin/typeorm migration:generate",
+    "migrations:run": "ts-node ./node_modules/.bin/typeorm migration:run",
+    "mprocs": "mprocs"
+  },
+  "keywords": [],
+  "author": "Ben hichem",
+  "license": "ISC",
+  "dependencies": {
+    "@grammyjs/chat-members": "^1.1.0",
+    "@grammyjs/conversations": "^1.2.0",
+    "@grammyjs/storage-file": "^2.4.2",
+    "@grammyjs/storage-typeorm": "^2.4.2",
+    "@types/dotenv": "^8.2.0",
+    "bee-queue": "^1.7.1",
+    "dotenv": "^16.4.5",
+    "grammy": "^1.25.1",
+    "json-2-csv": "^5.5.1",
+    "mprocs": "^0.6.4",
+    "nodemon": "^3.1.4",
+    "pino": "^9.2.0",
+    "reflect-metadata": "^0.2.2",
+    "sqlite3": "^5.1.7",
+    "typeorm": "^0.3.20"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.8",
+    "rimraf": "^5.0.7",
+    "ts-node": "^10.9.2",
+    "tslib": "^2.6.3",
+    "typescript": "^5.5.2"
+  }
+}
