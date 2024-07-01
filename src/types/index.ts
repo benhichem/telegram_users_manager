@@ -29,6 +29,11 @@ export type BulkMessageCsv = {
   attachement:any;
 }
 
+export type RegularCsvFormatInput = {
+  name:string;
+  username:string;
+}
+
 import { ChatMembersFlavor } from '@grammyjs/chat-members'
 import { Conversation, ConversationFlavor } from '@grammyjs/conversations'
 import { Context, SessionFlavor } from 'grammy'

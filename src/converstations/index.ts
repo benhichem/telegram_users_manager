@@ -3,9 +3,16 @@ import Csv from "../utils/csv.index.js";
 import { SendMessage } from "../utils/sendfile.js";
 
 
-//TODO: need to discuss the attachemnt file system before procceeding with the attachment
+
+/**
+ * TODO: need to discuss the attachemnt file system before procceeding with the attachment
+ *
+ * @export
+ * @param {MyConverstation} converstation
+ * @param {MyContext} context
+ */
 export default async function BulkMessage(converstation:MyConverstation, context:MyContext){
-  // this should do send a message saying we would like to get a file csv
+  // this should send a message saying we would like to get a file csv
   // get the file and read its inputs ...
   // start sending the messages ...
 
@@ -13,7 +20,7 @@ export default async function BulkMessage(converstation:MyConverstation, context
   // it will return the succesfull sent messages and unssucesfull onces
   await context.reply('Please provide a csv input format \n Name, Username, Message, attachment ')
   let newContext = await converstation.wait()
-  console.log(newContext.update.message?.document?.file_id);
+
   // checking if user sent document
   if('document' in newContext.update?.message!){
     const DocId = newContext.update.message?.document!.file_id
@@ -22,7 +29,7 @@ export default async function BulkMessage(converstation:MyConverstation, context
     let filePath = await file.download(`./temp/${file.file_unique_id}.csv`)
 
     let BulkMessageCsv = new Csv(filePath).read<BulkMessageCsv>()
-    console.log(BulkMessageCsv)
+
     // TODO: This can be Passed to a sub Process to deal with it so we can reduce the load on our bot
     await SendMessage(context, BulkMessageCsv)
 

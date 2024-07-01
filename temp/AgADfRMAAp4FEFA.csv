@@ -1,0 +1,45 @@
+const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
+
+// Function to download an image
+async function downloadImage(url, filePath) {
+  try {
+    const response = await axios({
+      url,
+      method: 'GET',
+      responseType: 'stream'
+    });
+
+    return new Promise((resolve, reject) => {
+      const writer = fs.createWriteStream(filePath);
+      response.data.pipe(writer);
+      let error = null;
+      writer.on('error', err => {
+        error = err;
+        writer.close();
+        reject(err);
+      });
+      writer.on('close', () => {
+        if (!error) {
+          resolve(true);
+        }
+      });
+    });
+  } catch (error) {
+    console.error(`Error downloading the image: ${error}`);
+    throw error;
+  }
+}
+
+// Example usage
+const imageUrl = `https://s3-eu-west-1.amazonaws.com/images.rightplants/Magnolia%20stellata%20'Jane%20Platt'~cu.jpg`; // Replace with the actual URL
+const outputFilePath = path.resolve(__dirname, 'downloaded_image.jpg'); // Replace with desired output path
+
+downloadImage(imageUrl, outputFilePath)
+  .then(() => {
+    console.log('Image downloaded successfully');
+  })
+  .catch(error => {
+    console.error('Failed to download image:', error);
+  });

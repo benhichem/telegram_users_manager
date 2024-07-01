@@ -3,10 +3,10 @@
         - [ ] requires csv list of users to remove
         - [ ] checks VIP list for intersections
         - [ ] removes only users that don't exist in VIP list.
-    - [ ] message bulk
-        - [ ] requires a csv input of user ids and messages
-        - [ ] read the CSV
-        - [ ] loop the CSV rows
+    - [x] message bulk
+        - [x] requires a csv input of user ids and messages
+        - [x] read the CSV
+        - [x] loop the CSV rows
     - [ ] add bulk
         - [ ] requires a csv list of users to add.
         - [ ] checks if the user is in the ban list.
@@ -40,8 +40,8 @@
         - [ ] look up
             the look up function serves as a way to get the intersections betwenn a userID and A list.
         - [ ] write to csv
-    - [ ] isAdmin
-        - [ ] function that runs a check if the called has admin priv.
+    - [x] isAdmin
+        - [x] function that runs a check if the called has admin priv.
     - [ ] loggin
         - [ ] logging requests by whom and what action
         - [ ] logs will be deleted after 30 days
@@ -50,10 +50,10 @@
         - [ ] error handling to send me an email if it fails.
         - [ ] mp2 setup
         - [ ] vultr hostring.
-    - [ ] send message function
-        - [ ] takes userID:string & message:string
-        - [ ] using the instagram api send message private to the user
-        - [ ] returns void
+    - [x] send message function
+        - [x] takes userID:string & message:string
+        - [x] using the instagram api send message private to the user
+        - [x] returns void
 
 - [ ] client review
 

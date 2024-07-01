@@ -9,6 +9,9 @@ import commands from "../commands/index.js"
 import { MyContext } from '../types/index.js'
 import ConfigService from './configservice.js'
 import BulkMessage from '../converstations/index.js'
+import BulkRemoveConversation from '../converstations/bulkremove.converstation.js'
+import AddBulkConversation from '../converstations/addbulk.converstation.js'
+
 
 
 
@@ -38,7 +41,10 @@ application.api.config.use(hydrateFiles(application.token))
 application.use(conversations()).command('cancel',async (ctx)=>{
   await ctx.conversation.exit()
 })
+
 application.use(createConversation(BulkMessage, 'bulk_message'))
+application.use(createConversation(BulkRemoveConversation,'bulk_remove'))
+application.use(createConversation(AddBulkConversation,'bulk_add'))
 
 // Connect Commands
 for (const iterator of commands) {
