@@ -1,11 +1,12 @@
 import Command from './command.interface.js'
 import { Bot } from 'grammy'
 import { MyContext } from '../types/index.js'
-import { AppDataSource } from '../providers/database.js'
+import AppDataSource from '../providers/database.js'
 import { User } from '../data/entities/user.entity.js'
 import ReadCMPStorage from '../utils/read_chat_member_plugin_storage.js'
-import Csv from "../utils/csv.index.js"
-import {SendFile} from '../utils/sendfile.js'
+
+import { SendFile } from '../utils/sendfile.js'
+import Csv from '../utils/csv.index.js'
 
 //TODO: please change the path to the output file to be ./temp/userlist.csv
 
@@ -29,6 +30,7 @@ async function GenerateUsersListFunc() {
         newUser.last_name = element.last_name ? element.last_name : ""
         newUser.username = element.username ? element.username : ""
         await connection.manager.save(newUser)
+
       } else {
         // might add more verification here in the future.
         continue;
@@ -37,6 +39,7 @@ async function GenerateUsersListFunc() {
 
     // we create a csv from all the data and ship it to user .
     const users = await connection.manager.find(User)
+    await connection.destroy()
     return users
 
     // we need to send it to private user only .
@@ -61,13 +64,14 @@ export default class GenerateUsersList extends Command {
         let userID = ctx.message?.from
         let admins = await ctx.getChatAdministrators()
         let isAdmin = admins.find((chatMember) => chatMember.user.id === userID?.id)
-        console.log(isAdmin)
+
         if (isAdmin !== undefined) {
           let users = await GenerateUsersListFunc()
+          // TODO: export users to csv
+          new Csv("./temp/userlist.csv").write(users)
           if (users.length !== 0) {
-            await SendFile(ctx, "output.ts", userID?.id!)
+            await SendFile(ctx, "./temp/userlist.csv", userID?.id!)
           }
-          await ctx.reply('This should be our Generate Function')
         } else {
           await ctx.reply('Sorry but you do not have permissions to run this command ...')
         }

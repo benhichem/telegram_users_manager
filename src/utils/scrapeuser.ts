@@ -4,7 +4,7 @@ import fs from 'node:fs'
 
 import { User } from '../data/entities/user.entity.js'
 import ConfigService from '../providers/configservice.js'
-import { AppDataSource } from '../providers/database.js'
+import  AppDataSource  from '../providers/database.js'
 import { chatMessageHistory } from "../types/index.js"
 
 const config = new ConfigService()

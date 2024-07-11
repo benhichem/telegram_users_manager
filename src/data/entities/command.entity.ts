@@ -4,7 +4,7 @@ import { Column, Entity, BaseEntity, PrimaryColumn, CreateDateColumn } from 'typ
 @Entity()
 export class Commands extends BaseEntity {
 
-  @PrimaryColumn()
+  @PrimaryColumn({generated:true})
   public id!: number;
 
   @Column({ unique: true })

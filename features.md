@@ -1,14 +1,17 @@
 - [ ] commands
     - [ ] remove bulk
-        - [ ] requires csv list of users to remove
-        - [ ] checks VIP list for intersections
+        - [x] requires csv list of users to remove.
+        - [ ] checks VIP list for intersections.
         - [ ] removes only users that don't exist in VIP list.
+        - [ ] add removed uses to the ban list table.
     - [x] message bulk
         - [x] requires a csv input of user ids and messages
         - [x] read the CSV
         - [x] loop the CSV rows
+        - [ ] needs to be updated to limit rate for 30 sec
+        - [ ] also needs to have its own process
     - [ ] add bulk
-        - [ ] requires a csv list of users to add.
+        - [x] requires a csv list of users to add.
         - [ ] checks if the user is in the ban list.
         - [ ] adds only users that don't exist in the ban list
     - [ ] add to BAN list
@@ -28,18 +31,18 @@
     - [ ] add to VIP list
         - [ ] requires a userID
         - [ ] write to the VIP CSV
-    - [ ] check user on what list is in
+    - [ ] check user on what list is in command
         - [ ] requires a userID
         - [ ] reads BAN CSV , VIP CSV until is found
         - [ ] returns the row
-
-- [ ] Utils
-    - [ ] Storage Crud
-        client requested the Storage to be csv format
-        - [ ] read
-        - [ ] look up
-            the look up function serves as a way to get the intersections betwenn a userID and A list.
-        - [ ] write to csv
+    - [ ] check if
+- [ ] Utils / tasks
+    - [ ] check user is banned
+    - [ ] check user is VIP
+    - [ ] create VIP Table
+    - [x] CSV Crud
+        - [x] read
+        - [x] write to csv
     - [x] isAdmin
         - [x] function that runs a check if the called has admin priv.
     - [ ] loggin
@@ -57,3 +60,7 @@
 
 - [ ] client review
 
+
+
+### Notes
+TODO: There is a lot of duplicate code in the converstations so i need to wrape it in a converstation

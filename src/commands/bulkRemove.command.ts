@@ -10,7 +10,7 @@ export default class BulkRemove extends Command {
   async execute(): Promise<void> {
     // enters bulk remove converstation
     this.bot.command('bulkremove',async (ctx)=>{
-      await ctx.conversation.enter('bulkremove')
+      await ctx.conversation.enter('bulk_remove')
     })
   }
 

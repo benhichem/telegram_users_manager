@@ -1,7 +1,7 @@
 import { MyContext, MyConverstation, RegularCsvFormatInput } from "../types/index.js";
 import Csv from "../utils/csv.index.js";
-import { AproveOrder, AppveOrderCallbacks } from "../keyboards/index.js";
-import { AppDataSource } from "../providers/database.js";
+import { BuildDownloadUrl, DownloadFile } from "../utils/downloadfile.js";
+import { SaveCommand } from "../data/controlers.js";
 
 
 
@@ -28,31 +28,37 @@ export default async function AddBulkConversation(converstation: MyConverstation
     // checking if user sent document
     if ('document' in newContext.update?.message!) {
       const DocId = newContext.update.message?.document!.file_id
-
-      // using the filedownload plugin provided by grammyjs to download the file
       let file = await newContext.api.getFile(DocId)
-      //@ts-ignore
-      let filePath = await file.download(`./temp/${file.file_unique_id}.csv`)
-
-      let newUser = new Csv(filePath).read<RegularCsvFormatInput>()
-
-      // validating the user command
-      await context.reply(`are you sure you would like to add ${newUser.length} to the group`, { reply_markup: AproveOrder() })
-
-      let validationCb = await converstation.waitForCallbackQuery(AppveOrderCallbacks, {
-        otherwise: async (ctx) => {
-          await ctx.reply('Please Use The keyboard provided down below to validate the command ...', { reply_markup: AproveOrder() })
-        }
-      })
-
-      console.log(validationCb.match[0])
-
+      const newFileurl = await BuildDownloadUrl(file.file_path!)
+      await DownloadFile(newFileurl, "./temp/removelist.downloaded.csv")
+      let removeUsersList = new Csv("./temp/removelist.downloaded.csv").read<RegularCsvFormatInput>()
+      await context.reply(`are you sure you would like to remove ${removeUsersList.length} to the group ? \nplease send 1 to confirm and 2 to cancel the action `)
+      const Confirmation = await converstation.form.number()
       // we need to save to the database ...
+      switch (Confirmation) {
+        case 1:
 
-      for (let index = 0; index < newUser.length; index++) {
-        const userRow = newUser[index];
+          await SaveCommand({ username: context.from?.username!, command: "bulk_add" })
+          // check if user is in the ban list
 
+          // if yes dont add
+
+          // if no please do add
+
+          //await
+          break;
+        case 2:
+          // action decliend
+          console.log(Confirmation)
+          await context.reply(`Action remove_bulk was canceled by ${context.from?.username} ...`)
+          await context.conversation.exit('bulk_remove')
+          break;
+        default:
+          await context.reply('Picked an undifiend option, operation failed')
+          await context.conversation.exit('bulk_remove')
+          break;
       }
+
 
       return
     } else {

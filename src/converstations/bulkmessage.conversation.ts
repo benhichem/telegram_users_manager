@@ -5,6 +5,7 @@ import { SendMessage } from "../utils/sendfile.js";
 
 
 /**
+ * TODO: update the api only sends 30 messages / s please check : https://core.telegram.org/bots/faq#my-bot-is-hitting-limits-how-do-i-avoid-this
  * TODO: need to discuss the attachemnt file system before procceeding with the attachment
  *
  * @export

@@ -4,10 +4,10 @@ import { Column, Entity, BaseEntity, PrimaryColumn } from 'typeorm';
 @Entity()
 export class User extends BaseEntity {
 
-  @PrimaryColumn()
+  @PrimaryColumn({unique:true})
   public id!: number;
 
-  @Column({ unique: true })
+  @Column()
   public username!: string;
 
   @Column()
