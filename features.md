@@ -1,22 +1,23 @@
 - [ ] commands
-    - [ ] remove bulk
+    - [x] remove bulk
         - [x] requires csv list of users to remove.
-        - [ ] checks VIP list for intersections.
-        - [ ] removes only users that don't exist in VIP list.
-        - [ ] add removed uses to the ban list table.
+        - [x] checks VIP list for intersections.
+        - [x] removes only users that don't exist in VIP list.
+        - [x] add removed uses to the ban list table.
     - [x] message bulk
         - [x] requires a csv input of user ids and messages
         - [x] read the CSV
         - [x] loop the CSV rows
-        - [ ] needs to be updated to limit rate for 30 sec
-        - [ ] also needs to have its own process
+        - [x] needs to be updated to limit rate for 30 sec
+        - [x] also needs to have its own process
     - [ ] add bulk
         - [x] requires a csv list of users to add.
         - [ ] checks if the user is in the ban list.
         - [ ] adds only users that don't exist in the ban list
-    - [ ] add to BAN list
-        - [ ] requires a user ID and a reason
-        - [ ] adds to ban list
+    - [x] add to BAN list
+        - [x] requires a user ID and a reason
+        - [x] adds to ban list
+        - [x] bannes user from group
     - [x] scrape all users
         - [x][OVERVIEW] Due to the Telegram TOS the gameplay changed here so instead of making it a command it will be a first run script to generate the userDatabase and then we will also implement a plugin will continue watching every movement of the users and add them to the list, and the command will only be used to update and export the userDatabase to csv file.
             - [x] extension script
@@ -28,18 +29,14 @@
                 - [x] set up the chat member plugin with an absolute path or straight to the database of users
                 - [x] get all users and generate the object to CSV
                 - [x] send it to the admin who requested it.
-    - [ ] add to VIP list
-        - [ ] requires a userID
-        - [ ] write to the VIP CSV
-    - [ ] check user on what list is in command
-        - [ ] requires a userID
-        - [ ] reads BAN CSV , VIP CSV until is found
-        - [ ] returns the row
-    - [ ] check if
+    - [x] add to VIP list
+        - [x] requires a userID
+        - [x] write to the VIP CSV
+
 - [ ] Utils / tasks
-    - [ ] check user is banned
-    - [ ] check user is VIP
-    - [ ] create VIP Table
+    - [x] check user is banned
+    - [x] check user is VIP
+    - [x] create VIP Table
     - [x] CSV Crud
         - [x] read
         - [x] write to csv
@@ -62,5 +59,4 @@
 
 
 
-### Notes
-TODO: There is a lot of duplicate code in the converstations so i need to wrape it in a converstation
+### Notes and feedback loops

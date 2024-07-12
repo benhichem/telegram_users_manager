@@ -30,7 +30,6 @@ async function GenerateUsersListFunc() {
         newUser.last_name = element.last_name ? element.last_name : ""
         newUser.username = element.username ? element.username : ""
         await connection.manager.save(newUser)
-
       } else {
         // might add more verification here in the future.
         continue;

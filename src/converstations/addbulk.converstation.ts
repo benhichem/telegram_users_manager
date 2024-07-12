@@ -2,6 +2,8 @@ import { MyContext, MyConverstation, RegularCsvFormatInput } from "../types/inde
 import Csv from "../utils/csv.index.js";
 import { BuildDownloadUrl, DownloadFile } from "../utils/downloadfile.js";
 import { SaveCommand } from "../data/controlers.js";
+import AppDataSource from "../providers/database.js";
+import { BannedUser } from "../data/entities/banned.entity.js";
 
 
 
@@ -69,5 +71,24 @@ export default async function AddBulkConversation(converstation: MyConverstation
   } catch (error) {
 
     console.log(error)
+  }
+}
+
+
+async function addBulkUsers(context:MyContext, newUsers:Array<{name:string; username:string }>){
+  const connection = await AppDataSource.initialize()
+
+  for (let index = 0; index < newUsers.length; index++) {
+    const element = newUsers[index];
+    if('username' in element || 'name' in element){
+      const isBanned = await connection.manager.findOneBy(BannedUser, {username:element.username})
+      if(isBanned === null){
+        //
+      }else{
+
+      }
+
+    }
+
   }
 }

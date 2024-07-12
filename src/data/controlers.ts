@@ -1,5 +1,5 @@
-import  AppDataSource  from "../providers/database.js";
-import {  commandsenum } from "../commands/index.js";
+import AppDataSource from "../providers/database.js";
+import { commandsenum } from "../commands/index.js";
 import { Commands } from "./entities/command.entity.js";
 import { BannedUser } from "./entities/banned.entity.js";
 import { DataSource } from "typeorm";
@@ -69,10 +69,10 @@ export async function CheckUser(username: string): Promise<User | false> {
     const connection = await AppDataSource.initialize()
     let user = await connection.manager.findOneBy(User, { username: username })
     if (user === null) {
-      await connection.destroy()
+
       return false
     } else {
-      await connection.destroy()
+
       return user
     }
   } catch (error) {
@@ -82,7 +82,14 @@ export async function CheckUser(username: string): Promise<User | false> {
   }
 }
 
-export async function AddNewVip(user: User): Promise<void> {
+/**
+ * function to add New User Into Vip List
+ *
+ * @export
+ * @param {User} user
+ * @return {*}  {Promise<boolean>}
+ */
+export async function AddNewVip(user: User): Promise<boolean> {
   try {
     const connection = await AppDataSource.initialize()
     let vip = new VipUsers()
@@ -91,9 +98,9 @@ export async function AddNewVip(user: User): Promise<void> {
       vip.last_name = user.last_name,
       vip.username = user.username
     await connection.manager.save(vip)
-    await connection.destroy()
+    return true
   } catch (error) {
-    throw new Error('failed to save to the database ...')
+    return false
   }
 }
 
@@ -135,4 +142,19 @@ class BannedUserControler {
   }
 }
 
+
+export async function AddBannedUser(user: User): Promise<boolean> {
+  try {
+    const connection = await AppDataSource.initialize()
+    const bannedUser = new BannedUser()
+    bannedUser.id = user.id
+    bannedUser.last_name = user.last_name
+    bannedUser.first_name = user.first_name
+    bannedUser.username = user.username
+    await connection.manager.save(bannedUser)
+    return true
+  } catch (error) {
+    return false
+  }
+}
 

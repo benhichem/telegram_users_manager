@@ -4,10 +4,11 @@ import { MyContext, MyConverstation, RegularCsvFormatInput } from "../types/inde
 import Csv from "../utils/csv.index.js";
 import { BuildDownloadUrl, DownloadFile } from "../utils/downloadfile.js";
 import { User } from "../data/entities/user.entity.js";
-import { SaveCommand } from "../data/controlers.js";
+import { AddBannedUser, SaveCommand } from "../data/controlers.js";
+import { VipUsers } from "../data/entities/vip.entity.js";
 
 /**
- * FIXME: type error file.download doesn't exist
+ *
  * requires a csv
  * requires validation from user
  * saves command
@@ -44,18 +45,11 @@ export default async function BulkRemoveConversation(converstation: MyConverstat
 
       switch (Confirmation) {
         case 1:
-          // action confirmed
-
-          //          await connection.manager.save()
           await SaveCommand({ username: context.from?.username!, command: "bulk_remove" })
-
           await removeUsers(context, removeUsersList)
-
-          //await
           break;
         case 2:
-          // action decliend
-          console.log(Confirmation)
+//          console.log(Confirmation)
           await context.reply(`Action remove_bulk was canceled by ${context.from?.username} ...`)
           await context.conversation.exit('bulk_remove')
           break;
@@ -64,7 +58,7 @@ export default async function BulkRemoveConversation(converstation: MyConverstat
           await context.conversation.exit('bulk_remove')
           break;
       }
-
+      await context.reply(`removed ${removeUsersList.length} member ...`)
       return
     } else {
       await context.reply(`Please provide a valid Csv for this command in the format of \n
@@ -97,11 +91,13 @@ async function removeUsers(context: Context, usersIds: Array<{ name: string, use
       const UserID = await connection.manager.findOneBy(User, { username: element.username })
       if (UserID !== null) {
         // chech if is VIP
-
-        //if user aint VIP will be banned.
-        await context.banChatMember(UserID.id)
-        // if user Is VIP will stay
-
+        let isVIP = await connection.manager.findOneBy(VipUsers,{id:UserID.id})
+        if(isVIP !== null){
+          continue
+        }else{
+          await context.banChatMember(UserID.id)
+          await AddBannedUser(UserID)
+        }
       } else {
         continue;
       }

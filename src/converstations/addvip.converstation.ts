@@ -27,9 +27,7 @@ export default async function AddVipConverstation(conversation: MyConverstation,
         await context.reply('User Does not exist in the group please make sure the user exists first ...')
         return
       }
-    } else {
-      return
-    }
+    } else { return }
   }
   catch (error) {
     console.log(error)

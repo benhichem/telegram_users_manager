@@ -10,6 +10,7 @@ import BulkMessage from '../converstations/bulkmessage.conversation.js'
 import BulkRemoveConversation from '../converstations/bulkremove.converstation.js'
 import AddBulkConversation from '../converstations/addbulk.converstation.js'
 import AddVipConverstation from '../converstations/addvip.converstation.js'
+import AddBannedUserConversation from '../converstations/addbanned.conversation.js'
 
 
 
@@ -45,6 +46,7 @@ application.use(createConversation(BulkMessage, 'bulk_message'))
 application.use(createConversation(BulkRemoveConversation,'bulk_remove'))
 application.use(createConversation(AddBulkConversation,'bulk_add'))
 application.use(createConversation(AddVipConverstation,'add_vip'))
+application.use(createConversation(AddBannedUserConversation,'add_banned'))
 
 // Connect Commands
 for (const iterator of commands) {
